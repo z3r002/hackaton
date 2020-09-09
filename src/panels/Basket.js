@@ -1,17 +1,26 @@
-import React, { useMemo, useState } from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import accounting from 'accounting';
-
 import Checkbox from './Checkbox';
-
 import edit from '../img/edit.svg';
 import './place.css';
 
 
 const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
-  const [ faster, setFaster ] = useState(true);
-  const [ time, setTime ] = useState('');
-  const [ selfService, setSelfService ] = useState(false);
+  const BASKET = JSON.parse(window.localStorage.getItem('basket') || '{}')
+  const [ faster, setFaster ] = useState(BASKET.faster );
+  const [ time, setTime ] = useState(BASKET.time || '');
+  const [ selfService, setSelfService ] = useState(BASKET.selfService );
+
+useEffect(() => {
+  const basket = {
+    faster,
+    time,
+    selfService,
+  }
+  window.localStorage.setItem('basket', JSON.stringify(basket))
+})
+
   const area = foodAreas.filter(area => area.id === areaId)[0];
   const item = area.items.filter(item => item.id === itemId)[0];
 
@@ -21,7 +30,6 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
     const products = Object.values(order)
       .filter((value) => {
         const { item: { id }} = value;
-
         return foodIds.has(id);
       });
 

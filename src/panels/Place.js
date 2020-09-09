@@ -27,7 +27,7 @@ const Place = ({item, order, onIncrementPosition, onDecrementPosition, area}) =>
     }, [order, item]);
 
 
-    let lox;
+
     return (
         <div className="Place">
             <header className="Place__header">
@@ -104,7 +104,9 @@ const Place = ({item, order, onIncrementPosition, onDecrementPosition, area}) =>
             </ul>
 
             <footer className="Place__footer">
-            <Link to={`/basket/${area.id}/${item.id}`} className="Place__order">
+                {
+                }
+            <Link to={`/basket/${area.id}/${item.id}`} className={price > 0 ? "Place__order" : "Disable_link"}>
                             Оформить заказ ({price}) </Link>
             </footer>
         </div>

@@ -152,6 +152,7 @@ const App = () => {
 					<Basket
 						foodAreas={FOOD_AREAS}
 						order={order}
+
 					/>
 				</Route>
 				<Route
